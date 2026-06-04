@@ -6,6 +6,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>就活応募トラッカー</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+  rel = "stylesheet" >
+ <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <style>
 :root{
  --bg:#f8fafc; --card:#ffffff; --line:#e5e7eb;
@@ -74,10 +78,55 @@ tr:hover td{background:#f9fafb}
  .toolbar select[name="status"]{ grid-column: span 1;}
  .toolbar button[type="submit"]{ grid-column: span 1;}
  }
+ body{
+    background: linear-gradient(180deg,#eef6ff, #ffffff);
+ }
+ .card{
+    border:none;
+    border-radius:20px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    background:white;
+ }
+ .btn-main{
+   background:linear-gradient(90deg,#2f7cff,#9b5cff);
+   color:white;
+   border:none;
+   border-radius:12px;
+   padding:10px 18px;
+ }
+ .app-title{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:40px;
+  font-weight:bold;
+  color:#1e3a8a;
+ }
+ .app-title i{
+  color:#3b82f6;
+  font-size:42px;
+ }
+ body{
+  font-family:system-ui;
+  background:
+   linear-gradient(rgba(135deg,
+     #eef4ff 0%,
+     #f8f5ff 50%,
+     #ffffff 100%);
+  
+ }
+ 
+  .app-title{
+   font-size:32px;
+  }
+ }
 </style>
 </head>
 <body>
-  <h1>就活応募トラッカー</h1>
+  <h1 class="app-title">
+  <i class="bi bi-briefcase-fill"></i>
+  就活応募トラッカー
+  </h1>
   <%
   String group = (String)request.getAttribute("group");
   if(group == null || group.isBlank()) group = "default";
@@ -92,31 +141,52 @@ tr:hover td{background:#f9fafb}
   else if("manufacturing".equals(group)) title = "製造職応募";
   %>
   <h2 style="margin:4px 0 12px;"><%= title %></h2>
+  <form method= "get" action="<%= request.getContextPath() %>/app">
+    <input type="hidden" name="group" value="<%= group %>" class="form-control">
+    <input type="text"
+           name="keyword"
+           placeholder="会社名で検索" class="form-control">
+    <select name="status" class="form-select">
+       <option value="">全ステータス</option>
+       <option value="検討中">検討中</option>
+     　<option value="応募済み">応募済み</option>
+      <option value="面接1">面接1</option>
+      <option value="面接2">面接2</option>
+      <option value="内定">内定</option>
+      <option value = "辞退">辞退</option>
+      <option value="不採用">不採用</option>
+      <option value = "連絡待ち">連絡待ち</option>
+   </select>
+    
+    <button type="submit" class="btn btn-primary">検索</button>
+           
+  </form>
   
-  <div style="margin:12px 0; display:flex; gap:8px; flex-wrap:wrap;">
+  
+  <div style="margin:12px 0; display:flex; gap:8px; flex-wrap:wrap;" class="card shadow-sm rounded-4 p-4 mb-4">
    <a class="btn" href="https://jp.indeed.com/" target="_blank">Indeed</a>
    <a class="btn" href="https://www.hellowork.mhlw.go.jp/" target="_blank">ハローワーク</a>
    <a class="btn" href="https://tenshoku.mynavi.jp/" target="_blank">マイナビ転職</a>
    <a class="btn" href="https://next.rikunabi.com/" target="_blank">リクナビNEXT</a>
   
   </div>
-  
+  <div class="card">
   <form method="post" class="toolbar">
-   <input type="hidden" name="group" value="<%= group%>">
-   <input name="company" placeholder="会社名"required>
- 　<input name="role" placeholder="職種" required>
-   <select name="status">
-     <option>検討中</option><option>応募済み</option><option>書類選考中</option>
-     <option>面接１</option><option>面接２</option><option>内定</option>
-     <option>辞退</option><option>不採用</option><option>連絡待ち</option>
+   <input type="hidden" name="group" value="<%= group %>" class="form-control">
+   <input name="company" placeholder="会社名"required class="form-control">
+ 　<input name="role" placeholder="職種" required class="form-control">
+   <select name="status" class="form-select">
+     <option value = "検討中">検討中</option ><option value = "応募済み">応募済み</option><option　value = "書類選考中">書類選考中</option>
+     <option value = "面接1">面接1</option><option value = "面接2">面接2</option><option value = "内定">内定</option>
+     <option value = "辞退">辞退</option><option value = "不採用">不採用</option><option value = "連絡待ち">連絡待ち</option>
    </select>
     <input type="datetime-local" name="nextActionAt" class="nowrap" placeholder="次アクション日時">
     <input name="nextAction" placeholder="次アクション(例：お礼メール)"> 
     <input name="note" placeholder="メモ">
-    <button type="submit">追加</button> 
+    <button type="submit" class="btn-main">追加</button> 
   </form>
-  
-  <table>
+  </div>
+  <table class="table table-striped table-hover">
    <tr>
    <th>ID</th><th>会社名</th><th>職種</th><th>ステータス</th>
    <th>次アクション</th><th>日時</th><th>残り</th><th>メモ</th><th></th>
@@ -149,10 +219,40 @@ tr:hover td{background:#f9fafb}
 		   <td><%= e.id %></td>
 		   <td><%= e.company %></td>
 		   <td><%= e.role %></td>
-		   <td><%= e.status %></td>
+		   <td>
+		   <%
+		    String badge = "bg-secondary";
+		   
+		   if("応募済み".equals(e.status)) badge = "bg-primary";
+		   else if("面接１".equals(e.status)) badge = "bg-warning text-dark";
+		   else if("面接２".equals(e.status)) badge = "bg-into text-dark";
+		   else if("内定".equals(e.status)) badge = "bg-success";
+		   else if("辞退".equals(e.status)) badge = "bg-dark";
+		   else if("不採用".equals(e.status)) badge = "bg-danger";
+		   else if("連絡待ち".equals(e.status)) badge = "bg-secondary";
+		   %>
+		   <span class="badge <%= badge %>">
+		       <%= e.status %>
+		   </span>
+		   </td>
 		   <td><%= e.nextAction == null ? "" : e.nextAction %></td>
 		   <td class="nowrap"><%= when %></td>
-		   <td class="nowrap"><%= remain %></td>
+		   <td class="nowrap">
+		    <%
+		     String remainBadge = "bg-secondary";
+		    
+		    if("期限切れ".equals(remain)){
+		    	remainBadge = "bg-danger";
+		    } else if(remain.contains("1日後") || remain.contains("2日後") || remain.contains("3日後")){
+		    	remainBadge = "bg-warning text-dark";
+		    }else if(!remain.isBlank()){
+		    	remainBadge = "bg-success";
+		    }
+		    %>
+		    <span class="badge <%= remainBadge %>">
+		    <%= remain %>
+		    </span>
+		   </td>
 		  
 		   <td>  <%= (e.note == null || e.note.isBlank()) ? "" : e.note  %></td>
 		   <td>

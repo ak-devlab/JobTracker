@@ -1,5 +1,6 @@
 package com.example.jobtracker.web;
 import java.util.List;
+
 import com.example.jobtracker.model.ApplicationEntry;
 import com.example.jobtracker.repo.ApplicationRepo;
 
@@ -9,6 +10,7 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+
 
 
 @WebServlet(urlPatterns = {"/app","/export"})
@@ -26,7 +28,8 @@ public class ApplicationServlet extends HttpServlet {
 		 //group パラメータを取得
 		 String group = req.getParameter("group");
 		 if(group == null || group.isBlank()) group = "default";
-		 
+		 String keyword = req.getParameter("keyword");
+		 String status = req.getParameter("status");
 		 String deleteId = req.getParameter("delete");
 		 if(deleteId != null) {
 			 try {
@@ -49,7 +52,12 @@ public class ApplicationServlet extends HttpServlet {
 			}catch(NumberFormatException ignored) {}
 		 }
 		 List<ApplicationEntry> items;
-		 if("all".equals(group)) {
+		 
+		 if(keyword != null && !keyword.isBlank()) {
+			  items = repo.search(group,keyword);
+		 }else if(status != null && !status.isBlank()) {
+			 items = repo.filterByStatus(group,status);
+		 }else if("all".equals(group)){
 			 items = repo.listAll();
 		 }else {
 			 items = repo.list(group);
