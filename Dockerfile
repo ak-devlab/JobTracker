@@ -4,5 +4,5 @@ COPY . .
 RUN mvn clean package
 
 FROM tomcat:9.0-jdk21-temurin
-COPY --from=build /app/target/JobTracker.war /usr/local/tomcat/webapps/ROOT.war
+COPY --from=build /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
 EXPOSE 8080
