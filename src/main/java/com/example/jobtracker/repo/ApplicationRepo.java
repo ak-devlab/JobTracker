@@ -23,7 +23,7 @@ public class ApplicationRepo {
 	// 一覧取得
 	public List<ApplicationEntry> list(String group){
 	    var all = new ArrayList<ApplicationEntry>();
-	    //次ここから　5月12日　now DB　メモリ保存
+	    
 	    String sql = """
 	    		SELECT id, company, role, status, next_action,
 	    		next_action_at, memo FROM applications 
