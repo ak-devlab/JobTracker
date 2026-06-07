@@ -32,7 +32,7 @@ public class ApplicationRepo {
 	    		""";
 	    
 	     try {
-	    	 Class.forName("com.mysql.cj.jdbc.Driver");
+	    	 Class.forName("org.postgresql.Driver");
 	    	 
 	    	 Connection con = DriverManager.getConnection(
 	    			    System.getenv("DB_URL"),
@@ -78,7 +78,7 @@ public class ApplicationRepo {
 		 		""";
 		 
 		 try {
-			 Class.forName("com.mysql.cj.jdbc.Driver");
+			 Class.forName("org.postgresql.Driver");
 			 
 			 Connection con = DriverManager.getConnection(
 					    System.getenv("DB_URL"),
@@ -133,7 +133,7 @@ public class ApplicationRepo {
 				""";
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("org.postgresql.Driver");
 			
 			Connection con = DriverManager.getConnection(
 				    System.getenv("DB_URL"),
@@ -187,7 +187,7 @@ public class ApplicationRepo {
 				ORDER BY next_action_at IS NULL, next_action_at
 				""";
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("org.postgresql.Driver");
 			
 			Connection con = DriverManager.getConnection(
 				    System.getenv("DB_URL"),
@@ -234,7 +234,7 @@ public class ApplicationRepo {
 	// 追加
 	public long add(String group, ApplicationEntry e) {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("org.postgresql.Driver");
 			
 			Connection con = DriverManager.getConnection(
 				    System.getenv("DB_URL"),
@@ -295,7 +295,7 @@ public class ApplicationRepo {
 				""";
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("org.postgresql.Driver");
 			
 			Connection con = DriverManager.getConnection(
 				    System.getenv("DB_URL"),
@@ -331,7 +331,7 @@ public class ApplicationRepo {
 		String sql = "DELETE FROM applications WHERE id=?";
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("org.postgresql.Driver");
 			
 			Connection con = DriverManager.getConnection(
 				    System.getenv("DB_URL"),
@@ -355,7 +355,7 @@ public class ApplicationRepo {
 		String sql = "SELECT * FROM applications WHERE id=?";
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("org.postgresql.Driver");
 			
 			Connection con = DriverManager.getConnection(
 				    System.getenv("DB_URL"),
