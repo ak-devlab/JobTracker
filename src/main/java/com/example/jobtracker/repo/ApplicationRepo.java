@@ -266,7 +266,7 @@ public class ApplicationRepo {
 			
 			ps.executeUpdate();
 			
-			System.out.println("INSERT SUCCESS");
+			
 			
 			ResultSet rs = ps.getGeneratedKeys();
 			
