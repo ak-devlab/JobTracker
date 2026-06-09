@@ -184,7 +184,8 @@ public class ApplicationRepo {
 				FROM applications
 				WHERE app_group = ?
 				AND status = ?
-				ORDER BY next_action_at IS NULL, next_action_at
+				ORDER BY next_action_at IS NULL, 
+				next_action_at
 				""";
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -243,7 +244,8 @@ public class ApplicationRepo {
 				);
 			String sql = """
 					INSERT INTO applications
-					(app_group, company, role, status, next_action, next_action_at,memo)
+					(app_group, company, role, status, 
+					next_action, next_action_at,memo)
 					VALUES(?,?,?,?,?,?,?)
 					""";
 			
@@ -263,6 +265,8 @@ public class ApplicationRepo {
 			ps.setString(7, e.note);
 			
 			ps.executeUpdate();
+			
+			System.out.println("INSERT SUCCESS");
 			
 			ResultSet rs = ps.getGeneratedKeys();
 			
