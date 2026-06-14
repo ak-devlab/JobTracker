@@ -18,7 +18,7 @@ import com.google.api.client.json.gson.GsonFactory;
 @WebServlet("/oauth2callback")
 public class OAuthCallbackServlet extends HttpServlet {
 	private static final String REDIRECT_URL =
-			"https://jobtracker-f80.onrender.com/oauth2callback";
+			"https://jobtracker-f80h.onrender.com/oauth2callback";
 	
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
