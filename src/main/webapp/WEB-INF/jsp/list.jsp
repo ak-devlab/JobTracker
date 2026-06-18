@@ -124,6 +124,7 @@ tr:hover td{background:#f9fafb}
 </head>
 <%
  String userName = (String)session.getAttribute("user_name");
+ String name = (String)session.getAttribute("name");
 %>
 <body>
   <h1 class="app-title">
@@ -131,7 +132,8 @@ tr:hover td{background:#f9fafb}
   就活応募トラッカー
   </h1>
   <div style="margin-right:20px;">
-     <%= userName %> さん
+    user_name= <%= userName %><br> さん
+    name = <%= name %><br>
      　<a href="<%= request.getContextPath() %>/logout">ログアウト</a>
   </div>
   <%
