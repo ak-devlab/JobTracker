@@ -67,27 +67,22 @@ public class OAuthCallbackServlet extends HttpServlet {
     	session.setAttribute("picture", picture);
     	
     	resp.setContentType("text/plain; charset=UTF-8");
-    	resp.getWriter().println("login OK");
-    	resp.getWriter().println("google_sub = " + googleSub);
-    	resp.getWriter().println("email = " + email);
-    	resp.getWriter().println("name =" + name);
-    	resp.getWriter().println("picture = " + picture);
-    	
-    	UserRepo userRepo = new UserRepo();
-    	User user = userRepo.findOrCreate(googleSub, email, name, picture);
+    	UserRepo repo = new UserRepo();
+    	User user = repo.findOrCreate(googleSub, email, name, picture);
     	
     	if(user == null) {
     		resp.getWriter().println("user save failed");
     		return;
     	}
     	
-    	session.setAttribute("user_id",user.id);
+    	HttpSession session = req.getSession();
     	
-    	resp.setContentType("text/plain; charset=UTF-8");
+    	session.setAttribute("user_id", user.id);
+    	session.setAttribute("user_name", user.name);
+    	
+    	resp.sendRedirect(req.getContextPath()+"/app?group=all");
     	
     	
-    	
-    	resp.getWriter().println("callback OK. code =" + code);
     	
     }
 }
