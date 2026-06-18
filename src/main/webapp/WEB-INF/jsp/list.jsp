@@ -122,11 +122,18 @@ tr:hover td{background:#f9fafb}
  }
 </style>
 </head>
+<%
+ String userName = (String)session.getAttribute("user_name");
+%>
 <body>
   <h1 class="app-title">
   <i class="bi bi-briefcase-fill"></i>
   就活応募トラッカー
   </h1>
+  <div style="margin-right:20px;">
+     <%= userName %> さん
+     　<a href="<%= request.getContextPath() %>/logout">ログアウト</a>
+  </div>
   <%
   String group = (String)request.getAttribute("group");
   if(group == null || group.isBlank()) group = "default";
