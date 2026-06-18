@@ -1,7 +1,9 @@
 package com.example.jobtracker.web;
 
 import java.io.IOException;
+
 import java.util.Arrays;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +16,9 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeToken
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
+import com.example.jobtracker.model.User;
+import com.example.jobtracker.repo.UserRepo;
+
 
 @WebServlet("/oauth2callback")
 public class OAuthCallbackServlet extends HttpServlet {
@@ -67,6 +72,19 @@ public class OAuthCallbackServlet extends HttpServlet {
     	resp.getWriter().println("email = " + email);
     	resp.getWriter().println("name =" + name);
     	resp.getWriter().println("picture = " + picture);
+    	
+    	UserRepo userRepo = new UserRepo();
+    	User user = userRepo.findOrCreate(googleSub, email, name, picture);
+    	
+    	if(user == null) {
+    		resp.getWriter().println("user save failed");
+    		return;
+    	}
+    	
+    	session.setAttribute("user_id",user.id);
+    	
+    	resp.setContentType("text/plain; charset=UTF-8");
+    	
     	
     	
     	resp.getWriter().println("callback OK. code =" + code);
