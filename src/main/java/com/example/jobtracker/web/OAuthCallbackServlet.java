@@ -75,7 +75,7 @@ public class OAuthCallbackServlet extends HttpServlet {
     		return;
     	}
     	
-    	HttpSession session = req.getSession();
+    
     	
     	session.setAttribute("user_id", user.id);
     	session.setAttribute("user_name", user.name);
