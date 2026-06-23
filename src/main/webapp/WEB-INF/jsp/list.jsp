@@ -124,18 +124,27 @@ tr:hover td{background:#f9fafb}
 </head>
 <%
  String userName = (String)session.getAttribute("user_name");
- String name = (String)session.getAttribute("name");
+ String picture = (String)session.getAttribute("picture");
 %>
 <body>
-<div style="margin-right:20px;">
-     <%= userName %> さん
-     　<a href="<%= request.getContextPath() %>/logout">ログアウト</a>
-  </div>
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+  
   <h1 class="app-title">
   <i class="bi bi-briefcase-fill"></i>
   就活応募トラッカー
   </h1>
+  <div style="display:flex; align-items:center; gap:10px; margin-right:20px;">
   
+     <% if(picture != null){ %>
+       <img src="<%= picture %>"
+         style="width:40px;height:40px;border-radius:50%;">
+         <% } %>
+     <span><%= userName %>さん</span>
+     <a href="<%= request.getContextPath() %>/logout">ログアウト</a>
+  
+  </div>
+  
+  </div>
   <%
   String group = (String)request.getAttribute("group");
   if(group == null || group.isBlank()) group = "default";
