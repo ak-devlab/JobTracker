@@ -80,6 +80,8 @@ public class OAuthCallbackServlet extends HttpServlet {
     	session.setAttribute("user_id", user.id);
     	session.setAttribute("user_name", user.name);
     	
+    	System.out.println("session user_name"+ session.getAttribute("user_name"));
+    	
     	resp.sendRedirect(req.getContextPath()+"/app?group=all");
     	
     	
