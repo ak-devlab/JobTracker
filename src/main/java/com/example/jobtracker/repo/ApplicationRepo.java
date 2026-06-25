@@ -251,7 +251,7 @@ public class ApplicationRepo {
 					INSERT INTO applications
 					(app_group, company, role, status, 
 					next_action, next_action_at,memo, user_id)
-					VALUES(?,?,?,?,?,?,?)
+					VALUES(?,?,?,?,?,?,?,?)
 					""";
 			
 			PreparedStatement ps = con.prepareStatement(sql,
