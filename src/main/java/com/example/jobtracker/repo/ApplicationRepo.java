@@ -21,13 +21,13 @@ public class ApplicationRepo {
 		return seqs.computeIfAbsent(group, g -> new AtomicLong(1));
 	}
 	// 一覧取得
-	public List<ApplicationEntry> list(String group){
+	public List<ApplicationEntry> list(String group, long userId){
 	    var all = new ArrayList<ApplicationEntry>();
 	    
 	    String sql = """
 	    		SELECT id, company, role, status, next_action,
 	    		next_action_at, memo FROM applications 
-	    		WHERE app_group = ?
+	    		WHERE app_group = ? AND user_id = ?
 	    		ORDER BY next_action_at IS NULL, next_action_at
 	    		""";
 	    
@@ -42,6 +42,7 @@ public class ApplicationRepo {
 	    	 
 	    	 PreparedStatement ps = con.prepareStatement(sql);
 	    	 ps.setString(1, group);
+	    	 ps.setLong(2, userId);
 	    	 ResultSet rs = ps.executeQuery();
 	    	 
 	    	 while(rs.next()) {
@@ -67,13 +68,14 @@ public class ApplicationRepo {
 	     return all;
 	}
 	    
-	 public List<ApplicationEntry> listAll(){
+	 public List<ApplicationEntry> listAll(Long userId){
 		 var all = new ArrayList<ApplicationEntry>();
 		
 		 String sql="""
 		 		SELECT id, company, role, status,
 		 		next_action, next_action_at, memo
 		 		FROM applications
+		 		WHERE user_id = ?
 		 		ORDER BY next_action_at IS NULL, next_action_at
 		 		""";
 		 
@@ -88,6 +90,7 @@ public class ApplicationRepo {
 			 
 			 PreparedStatement ps =
 					 con.prepareStatement(sql);
+			 ps.setLong(1, userId);
 			 ResultSet rs = ps.executeQuery();
 			 
 			 while(rs.next()) {
@@ -120,7 +123,7 @@ public class ApplicationRepo {
 		 return all;
 	 }
 	 
-	public List<ApplicationEntry> search(String group,String keyword){
+	public List<ApplicationEntry> search(String group,String keyword, long userId){
 		
 		var all = new ArrayList<ApplicationEntry>();
 		
@@ -128,7 +131,7 @@ public class ApplicationRepo {
 				SELECT id,company,role,status,next_action,
 				next_action_at,memo
 				FROM applications
-				WHERE app_group=? AND company LIKE ?
+				WHERE app_group=? AND company LIKE ? AND user_id = ?
 				ORDER BY next_action_at IS NULL, next_action_at
 				""";
 		
@@ -144,6 +147,7 @@ public class ApplicationRepo {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1,group);
 			ps.setString(2,"%" + keyword + "%");
+			ps.setLong(3, userId);
 			
 			ResultSet rs = ps.executeQuery();
 			
@@ -175,15 +179,15 @@ public class ApplicationRepo {
 	}
 		return all;
 	}
-	public List<ApplicationEntry> filterByStatus(String group, String status){
+	public List<ApplicationEntry> filterByStatus(String group, String status, long userId){
 		var out = new ArrayList<ApplicationEntry>();
 		
 		String sql = """
 				SELECT id, company, role, status,
 				next_action, next_action_at, memo
 				FROM applications
-				WHERE app_group = ?
-				AND status = ?
+				WHERE app_group = ? 
+				AND status = ? AND user_id = ?
 				ORDER BY next_action_at IS NULL, 
 				next_action_at
 				""";
@@ -200,6 +204,7 @@ public class ApplicationRepo {
 			
 			ps.setString(1, group);
 			ps.setString(2, status);
+			ps.setLong(3, userId);
 			
 			ResultSet rs = ps.executeQuery();
 			
@@ -233,7 +238,7 @@ public class ApplicationRepo {
 }
 	
 	// 追加
-	public long add(String group, ApplicationEntry e) {
+	public long add(String group, ApplicationEntry e, long userId) {
 		try {
 			Class.forName("org.postgresql.Driver");
 			
@@ -245,7 +250,7 @@ public class ApplicationRepo {
 			String sql = """
 					INSERT INTO applications
 					(app_group, company, role, status, 
-					next_action, next_action_at,memo)
+					next_action, next_action_at,memo, user_id)
 					VALUES(?,?,?,?,?,?,?)
 					""";
 			
@@ -257,12 +262,14 @@ public class ApplicationRepo {
 			ps.setString(4, e.status);
 			ps.setString(5, e.nextAction);
 			
+			
 			if(e.nextActionAt == null) {
 				ps.setTimestamp(6, null);
 			}else {
 				ps.setTimestamp(6, new Timestamp(e.nextActionAt));
 			}
 			ps.setString(7, e.note);
+			ps.setLong(8, userId);
 			
 			ps.executeUpdate();
 			
@@ -286,16 +293,17 @@ public class ApplicationRepo {
 		return 0;
 	}
 	//　更新
-	public void update(String group, ApplicationEntry e) {
+	public void update(String group, ApplicationEntry e, long userId) {
 		String sql = """
 				UPDATE applications
-				SET company =?,
+				SET app_group = ?,
+				 company =?,
 				role=?,
 				status=?,
 				next_action=?,
 				next_action_at=?,
 				memo=?
-				WHERE id=?
+				WHERE id=? AND user_id = ?
 				""";
 		
 		try {
@@ -307,20 +315,21 @@ public class ApplicationRepo {
 				    System.getenv("DB_PASS")
 				);
 			PreparedStatement ps = con.prepareStatement(sql);
-			
-			ps.setString(1, e.company);
-			ps.setString(2, e.role);
-			ps.setString(3, e.status);
-			ps.setString(4, e.nextAction);
+			ps.setString(1, group);
+			ps.setString(2, e.company);
+			ps.setString(3, e.role);
+			ps.setString(4, e.status);
+			ps.setString(5, e.nextAction);
 			
 			if(e.nextActionAt == null) {
-				ps.setTimestamp(5, null);
+				ps.setTimestamp(6, null);
 				
 			}else {
-				ps.setTimestamp(5, new java.sql.Timestamp(e.nextActionAt));
+				ps.setTimestamp(6, new java.sql.Timestamp(e.nextActionAt));
 			}
-			ps.setString(6, e.note);
-			ps.setLong(7, e.id);
+			ps.setString(7, e.note);
+			ps.setLong(8, e.id);
+			ps.setLong(9, userId);
 			
 			ps.executeUpdate();
 			 
@@ -330,9 +339,9 @@ public class ApplicationRepo {
 			ex.printStackTrace();
 		}
 	}
-	// 削除 5月19日　次やる
-	public void delete(String group,long id) { 
-		String sql = "DELETE FROM applications WHERE id=?";
+	
+	public void delete(String group,long id,long userId) { 
+		String sql = "DELETE FROM applications WHERE id=? AND user_id = ?";
 		
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -345,7 +354,9 @@ public class ApplicationRepo {
 			
 			PreparedStatement ps = con.prepareStatement(sql);
 			
-			ps.setLong(1, id);
+			ps.setString(1, group);
+			ps.setLong(2, id);
+			ps.setLong(3, userId);
 			ps.executeUpdate();
 			con.close();
 		}catch(Exception ex) {
@@ -354,9 +365,9 @@ public class ApplicationRepo {
 		
 	}
 	// 検索
-	public ApplicationEntry find(String group, long id) {
+	public ApplicationEntry find(String group, long id, long user_Id) {
 		
-		String sql = "SELECT * FROM applications WHERE id=?";
+		String sql = "SELECT * FROM applications WHERE app_group = ? AND id=? AND user_id = ?";
 		
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -368,7 +379,9 @@ public class ApplicationRepo {
 				);
 			
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setLong(1, id);
+			ps.setString(1, group);
+			ps.setLong(2, id);
+			ps.setLong(3, user_Id);
 			
 			ResultSet rs = ps.executeQuery();
 			

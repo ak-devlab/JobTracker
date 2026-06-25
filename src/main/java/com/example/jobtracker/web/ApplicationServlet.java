@@ -24,7 +24,7 @@ public class ApplicationServlet extends HttpServlet {
 	            throws ServletException, IOException {
 		 
 		
-		 
+		 long userId = (long) req.getSession().getAttribute("user_id");
 		 //group パラメータを取得
 		 String group = req.getParameter("group");
 		 if(group == null || group.isBlank()) group = "default";
@@ -34,7 +34,7 @@ public class ApplicationServlet extends HttpServlet {
 		 if(deleteId != null) {
 			 try {
 				 long id = Long.parseLong(deleteId);
-				 repo.delete(group, id);
+				 repo.delete(group, id, userId);
 			 }catch(NumberFormatException ignored) {}
 			 resp.sendRedirect(req.getContextPath()+"/app?group=" + group);
 			 return;
@@ -44,7 +44,8 @@ public class ApplicationServlet extends HttpServlet {
 		 if(editId != null) {
 			 try {
 				 long id = Long.parseLong(editId);
-				 var entry = repo.find(group, id);
+				
+				 var entry = repo.find(group, id, userId);
 				 req.setAttribute("group", group);
 				 req.setAttribute("entry", entry);
 				 req.getRequestDispatcher("/WEB-INF/jsp/edit.jsp").forward(req, resp);
@@ -53,14 +54,17 @@ public class ApplicationServlet extends HttpServlet {
 		 }
 		 List<ApplicationEntry> items;
 		 
+		 
 		 if(keyword != null && !keyword.isBlank()) {
-			  items = repo.search(group,keyword);
+			  items = repo.search(group,keyword,userId);
 		 }else if(status != null && !status.isBlank()) {
-			 items = repo.filterByStatus(group,status);
+			 items = repo.filterByStatus(group,status,userId);
 		 }else if("all".equals(group)){
-			 items = repo.listAll();
+			 
+			 items = repo.listAll(userId);
 		 }else {
-			 items = repo.list(group);
+			 
+			 items = repo.list(group, userId);
 		 }
 		 
 		 req.setAttribute("group", group);
@@ -80,6 +84,8 @@ public class ApplicationServlet extends HttpServlet {
 		 if(group == null || group.isBlank()) group = "default";
 		 
 		 req.setCharacterEncoding("UTF-8");
+		 HttpSession session = req.getSession();
+		 long userId = (long) session.getAttribute("user_Id");
 		 String idStr = req.getParameter("id");
 		 String company = req.getParameter("company");
 		 String role = req.getParameter("role");
@@ -105,15 +111,18 @@ public class ApplicationServlet extends HttpServlet {
 		 entry.note = note;
 		 entry.group = group;
 		 
+		 
 		 if(idStr == null || idStr.isBlank()) {
-			 repo.add(group, entry);
+			 
+			 repo.add(group, entry, userId);
 		 }else {
 			 try {
 				 entry.id = Long.parseLong(idStr);
-				 repo.update(group, entry);
+				 repo.update(group, entry, userId);
 			 }catch(NumberFormatException ignored) {}
 		 }
-		 resp.sendRedirect(req.getContextPath() + "/app?group=" + group);
+		 resp.sendRedirect(req.getContextPath() + 
+				 "/app?group=" + group);
 		 
 		
 }
