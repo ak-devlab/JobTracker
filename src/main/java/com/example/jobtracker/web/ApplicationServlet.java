@@ -79,13 +79,17 @@ public class ApplicationServlet extends HttpServlet {
 	 protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 	    throws ServletException, IOException {
 		 
+		 req.setCharacterEncoding("UTF-8");
+		 HttpSession session = req.getSession(false);
+		 if(session == null || session.getAttribute("user_id") == null) {
+			 resp.sendRedirect(req.getContextPath()+"/google-login");
+			 return;
+		 }
+		 Long userId = (Long) session.getAttribute("user_id");
 		 //groupを取得
 		 String group = req.getParameter("group");
 		 if(group == null || group.isBlank()) group = "default";
-		 
-		 req.setCharacterEncoding("UTF-8");
-		 HttpSession session = req.getSession();
-		 long userId = (long) session.getAttribute("user_Id");
+
 		 String idStr = req.getParameter("id");
 		 String company = req.getParameter("company");
 		 String role = req.getParameter("role");
