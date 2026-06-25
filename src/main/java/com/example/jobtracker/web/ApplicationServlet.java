@@ -22,9 +22,14 @@ public class ApplicationServlet extends HttpServlet {
 	 @Override
 	    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 	            throws ServletException, IOException {
+		 HttpSession session = req.getSession(false);
 		 
+		 if(session == null || session.getAttribute("user_id") == null) {
+			 resp.sendRedirect(req.getContextPath()+"/google-login");
+			 return;
+		 }
 		
-		 long userId = (long) req.getSession().getAttribute("user_id");
+		 Long userId = (Long) req.getSession().getAttribute("user_id");
 		 //group パラメータを取得
 		 String group = req.getParameter("group");
 		 if(group == null || group.isBlank()) group = "default";
