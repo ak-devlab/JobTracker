@@ -341,7 +341,7 @@ public class ApplicationRepo {
 	}
 	
 	public void delete(String group,long id,long userId) { 
-		String sql = "DELETE FROM applications WHERE id=? AND user_id = ?";
+		String sql = "DELETE FROM applications WHERE app_group = ? AND id=? AND user_id = ?";
 		
 		try {
 			Class.forName("org.postgresql.Driver");
