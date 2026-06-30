@@ -37,7 +37,8 @@ public class GoogleLoginServlet extends HttpServlet {
 						+ "&redirect_uri=" + enc(REDIRECT_URL)
 						+ "&response_type=code"
 						+ "&scope=" + enc("openid email profile")
-						+ "&state=" + enc(state);
+						+ "&state=" + enc(state)
+						+ "&prompt=select_account";
 				
 				resp.sendRedirect(url);
 	}
