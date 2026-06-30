@@ -11,11 +11,11 @@ https://jobtracker-f80h.onrender.com/
 
 ### トップページ
 
-![トップページ](images/top-page.png.png)
+![トップページ](images/top-page.png)
 
 ### 応募一覧画面
 
-![応募一覧画面](images/application-list.png.png)
+![応募一覧画面](images/application-list.png)
 
 ## 主な機能
 
