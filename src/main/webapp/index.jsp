@@ -30,6 +30,23 @@
 <body>
   <div class="container">
     <h1>就活管理メニュー</h1>
+    <p style="text-align:center; color:#555; margin-top:10px;">
+         Googleアカウントでログインすると、自分専用の応募一覧を管理できます。
+    </p>
+    <div>
+    <a href="<%= request.getContextPath() %>/google-login"
+        style="
+          display:inline-block;
+          padding:12px 24px;
+          background:#4285f4;
+          color:white;
+          text-decoration:none;
+          border-radius:8px;
+          font-weight:bold;
+        ">
+         Googleでログイン
+    </a>
+    </div>
     <div class="list">
      <!-- 好きなだけ増やせます。group=o を渡すのがポイント -->
       <a class="card" href="app?group=it">
