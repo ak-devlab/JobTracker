@@ -7,6 +7,16 @@ Googleログインに対応しており、ユーザーごとに応募データ�
 
 https://jobtracker-f80h.onrender.com/
 
+## 画面イメージ
+
+### トップページ
+
+![トップページ](images/top-page.png.png)
+
+### 応募一覧画面
+
+![応募一覧画面](images/application-list.png.png)
+
 ## 主な機能
 
 - Googleアカウントでログイン
