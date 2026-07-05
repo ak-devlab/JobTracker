@@ -129,6 +129,13 @@
      <a class="btn" href="app?group=all">全件一覧へ</a>
     </div>
   </div>
+  
+  <div style="text-align:center; margin-top:30px;">
+    <a href="<%= request.getContextPath() %>/privacy.jsp">
+    
+    </a>
+   
+  </div>
 
 </body>
 </html>
