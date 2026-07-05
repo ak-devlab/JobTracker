@@ -132,7 +132,7 @@
   
   <div style="text-align:center; margin-top:30px;">
     <a href="<%= request.getContextPath() %>/privacy.jsp">
-    
+      プライバシーポリシー
     </a>
    
   </div>
