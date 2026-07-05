@@ -1,4 +1,17 @@
-build/
-.settings/
+# Eclipse
 .classpath
 .project
+.settings/
+
+# Java build files
+build/
+target/
+*.class
+*.war
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment / secrets
+.env
