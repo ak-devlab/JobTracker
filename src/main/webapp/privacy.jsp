@@ -127,7 +127,8 @@
     
     <p>
       運営者：AK-Devlab<br>
-    お問い合わせ先：メールアドレスまたは問い合わせフォームURLを記載
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeyx8aUj9P3cmf5P7kT216QTzhu7yzNxsTMR8fiFuhC8c3Wkw/viewform?usp=header" 
+        target="_blank" rel="noopener noreferrer">お問い合わせはこちら</a>
     </p>
     
     <p>制定日：2026年6月30日</p>
