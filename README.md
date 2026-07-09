@@ -7,6 +7,13 @@ Googleログインに対応しており、ユーザーごとに応募データ�
 
 https://jobtracker-f80h.onrender.com/
 
+## プライバシーポリシー・お問い合わせ
+
+本サービスでは、Googleログインにより取得するユーザー情報および利用者が入力した応募データを、サービス提供の目的で利用します。
+
+- プライバシーポリシー: https://jobtracker-f80h.onrender.com/privacy.jsp
+- お問い合わせフォーム: Googleフォームを利用
+
 ## 画面イメージ
 
 ### トップページ
