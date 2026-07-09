@@ -7,6 +7,9 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.sql.*;
+import java.util.Map;
+import java.util.HashMap;
+
 public class ApplicationRepo {
 	// グループ別の応募データを保持する　Map
 	private final ConcurrentMap<String, ConcurrentMap<Long,ApplicationEntry>> store = new ConcurrentHashMap<>();
@@ -413,6 +416,43 @@ public class ApplicationRepo {
 			ex.printStackTrace();
 		}
 		return null;
+	}
+	
+	public Map<String, Integer> countByStatus(Long userId){
+		Map<String, Integer> counts = new HashMap<>();
+		
+		String sql = """
+				SELECT status, COUNT(*) AS count
+				FROM applications
+				WHERE user_id = ?
+				GROUP BY status
+				""";
+		
+		try {
+			Class.forName("org.postgresql.Driver");
+			
+			Connection con = DriverManager.getConnection(
+					System.getenv("DB_URL"),
+					System.getenv("DB_USER"),
+					System.getenv("DB_PASS")
+					);
+			
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setLong(1, userId);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				counts.put(rs.getString("status"), rs.getInt("count"));
+			}
+			
+			rs.close();
+			ps.close();
+			con.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return counts;
 	}
 	
 }

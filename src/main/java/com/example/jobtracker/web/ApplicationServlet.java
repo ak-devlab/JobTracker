@@ -1,6 +1,7 @@
 package com.example.jobtracker.web;
 import java.util.List;
 
+
 import com.example.jobtracker.model.ApplicationEntry;
 import com.example.jobtracker.repo.ApplicationRepo;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 
 
@@ -30,6 +32,8 @@ public class ApplicationServlet extends HttpServlet {
 		 }
 		
 		 Long userId = (Long) req.getSession().getAttribute("user_id");
+		 Map<String, Integer> statusCounts = repo.countByStatus(userId);
+		 req.setAttribute("statusCounts", statusCounts);
 		 //group パラメータを取得
 		 String group = req.getParameter("group");
 		 if(group == null || group.isBlank()) group = "default";

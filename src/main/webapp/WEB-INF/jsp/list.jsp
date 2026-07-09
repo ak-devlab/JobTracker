@@ -180,6 +180,26 @@ tr:hover td{background:#f9fafb}
            
   </form>
   
+  <div style="
+   margin: 20px 0;
+   padding: 16px;
+   background: #ffffff;
+   border-radius: 12px;
+   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  ">
+  
+  <strong>ステータス別件数</strong>
+  <div style="margin-top: 10px; display: flex; gap: 12px; flex-wrap: wrap;">
+        <span>検討中：${statusCounts["検討中"] == null ? 0 : statusCounts["検討中"]}件</span>
+        <span>応募済み：${statusCounts["応募済み"] == null ? 0 : statusCounts["応募済み"]}件</span>
+        <span>書類選考：${statusCounts["書類選考"] == null ? 0 : statusCounts["書類選考"]}件</span>
+        <span>面接：${statusCounts["面接"] == null ? 0 : statusCounts["面接"]}件</span>
+        <span>内定：${statusCounts["内定"] == null ? 0 : statusCounts["内定"]}件</span>
+        <span>不採用：${statusCounts["不採用"] == null ? 0 : statusCounts["不採用"]}件</span>
+    </div>
+  
+  
+  </div>
   
   <div style="margin:12px 0; display:flex; gap:8px; flex-wrap:wrap;" class="card shadow-sm rounded-4 p-4 mb-4">
    <a class="btn" href="https://jp.indeed.com/" target="_blank">Indeed</a>

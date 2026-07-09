@@ -15,7 +15,8 @@ public class ApplicationEntry {
 	public ApplicationEntry() {}
 	
 	public ApplicationEntry(long id, String company, String role, 
-			String status, long nextActionAt, String nextAction, String jobUrl, String note, String group) {
+			String status, long nextActionAt, String nextAction, 
+			String jobUrl, String note, String group) {
 		this.id = id;
 		this.company = company;
 		this.role = role;
