@@ -195,6 +195,7 @@ tr:hover td{background:#f9fafb}
         <span>書類選考：${statusCounts["書類選考"] == null ? 0 : statusCounts["書類選考"]}件</span>
         <span>面接：${statusCounts["面接"] == null ? 0 : statusCounts["面接"]}件</span>
         <span>内定：${statusCounts["内定"] == null ? 0 : statusCounts["内定"]}件</span>
+        <span>面接2：${statusCounts["面接2"] == null ? 0 : statusCounts["面接2"]}件</span>
         <span>不採用：${statusCounts["不採用"] == null ? 0 : statusCounts["不採用"]}件</span>
     </div>
   
