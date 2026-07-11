@@ -19,6 +19,8 @@ public class UserRepo {
 			System.out.println("DB_URL exists: " + (dbUrl != null));
 			System.out.println("DB_USER exists: " + (dbUser != null));
 			System.out.println("DB_PASS exists: " + (dbPass != null));
+			System.out.println("DB_URL has sslmode: " + (dbUrl != null && dbUrl.contains("sslmode=require")));
+			System.out.println("DB_URL has render host: " + (dbUrl != null && dbUrl.contains("oregon-postgres.render.com")));
 
 			Connection con = DriverManager.getConnection(dbUrl, dbUser, dbPass);
 			
