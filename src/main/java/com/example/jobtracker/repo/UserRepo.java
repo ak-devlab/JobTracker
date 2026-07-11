@@ -10,13 +10,17 @@ public class UserRepo {
 		try {
 			Class.forName("org.postgresql.Driver");
 			
-			Connection con = DriverManager.getConnection(
-					System.getenv("DB_URL"),
-					System.getenv("DB_USER"),
-					System.getenv("DB_PASS")
-					
-					
-					);
+			Class.forName("org.postgresql.Driver");
+
+			String dbUrl = System.getenv("DB_URL");
+			String dbUser = System.getenv("DB_USER");
+			String dbPass = System.getenv("DB_PASS");
+
+			System.out.println("DB_URL exists: " + (dbUrl != null));
+			System.out.println("DB_USER exists: " + (dbUser != null));
+			System.out.println("DB_PASS exists: " + (dbPass != null));
+
+			Connection con = DriverManager.getConnection(dbUrl, dbUser, dbPass);
 			
 			String selectSql = "SELECT id, google_Sub, email, name, picture FROM users WHERE google_sub = ?";
 			PreparedStatement ps = con.prepareStatement(selectSql);
@@ -70,10 +74,12 @@ public class UserRepo {
 			return u;
 			
 		}catch(Exception e){
-			e.printStackTrace();
-			return null;
+			    System.out.println("UserRepo error message: " + e.getMessage());
+			    e.printStackTrace();
+			    return null;
+			}
 					
 		}
 	}
 
-}
+
