@@ -134,6 +134,10 @@
     <a href="<%= request.getContextPath() %>/privacy.jsp">
       プライバシーポリシー
     </a>
+    
+    <a href="<%= request.getContextPath() %>/terms.jsp">
+      利用規約
+    </a>
    
   </div>
 
