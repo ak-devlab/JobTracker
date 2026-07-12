@@ -14,6 +14,10 @@ https://jobtracker-f80h.onrender.com/
 - プライバシーポリシー: https://jobtracker-f80h.onrender.com/privacy.jsp
 - お問い合わせフォーム: Googleフォームを利用
 
+## 利用規約・プライバシーポリシー
+
+- 利用規約: https://jobtracker-f80h.onrender.com/terms.jsp
+
 ## 画面イメージ
 
 ### トップページ
