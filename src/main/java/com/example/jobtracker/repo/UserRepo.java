@@ -82,6 +82,43 @@ public class UserRepo {
 			}
 					
 		}
+	public void deleteUserAndApplications(Long userId) throws Exception{
+		Class.forName("org.postgresql.Driver");
+		
+		Connection con = DriverManager.getConnection(
+				System.getenv("DB_URL"),
+				System.getenv("DB_USER"),
+				System.getenv("DB_PASS")
+				);
+		
+		try {
+			con.setAutoCommit(false);
+			
+			PreparedStatement ps1 = con.prepareStatement(
+					"DELETE FROM applications WHERE user_id = ?"
+					);
+			ps1.setLong(1, userId);
+			ps1.executeUpdate();
+			ps1.close();
+			
+			PreparedStatement ps2 = con.prepareStatement(
+					"DELETE FROM users WHERE id = ?"
+					);
+			ps2.setLong(1, userId);
+			ps2.executeUpdate();
+			ps2.close();
+			
+			con.commit();
+		}catch(Exception e) {
+			con.rollback();
+			throw e;
+		}finally {
+			con.setAutoCommit(true);
+			con.close();
+		}
 	}
+	
+	}
+
 
 

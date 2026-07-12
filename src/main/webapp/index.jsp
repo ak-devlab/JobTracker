@@ -30,6 +30,11 @@
 <body>
   <div class="container">
     <h1>就活管理メニュー</h1>
+    <% if("1".equals(request.getParameter("deleted"))) { %>
+     <p style="text-align:center; color:#c0392b; font-weight:bold;">
+        退会処理が完了しました。登録データを削除しました。
+     </p>
+    <% } %>
     <p style="text-align:center; color:#555; margin-top:10px;">
          Googleアカウントでログインすると、自分専用の応募一覧を管理できます。
     </p>
