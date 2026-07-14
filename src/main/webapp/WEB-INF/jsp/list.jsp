@@ -145,24 +145,7 @@ tr:hover td{background:#f9fafb}
   
   </div>
   
-  <div style="margin-top:40px; padding:20px; border:1px solid #ddd; border-radius:10px; background:#fff;">
-     <h3 style="color:#c0392b;">退会・データ削除</h3>
-     
-     <p style="color:#555;">
-        退会すると、登録した応募データとアカウント情報が削除されます。
-        この操作は取り消せません。
-     </p>
-     
-     <form method="post" action="<%= request.getContextPath() %>/delete-account"
-           onsubmit="return confirm('本当に退会しますか？登録した応募データもすべて削除されます。');">
-           <button type="submit"
-              style="background:#c0392b; color:white; border:none; padding:10px 18px; border-radius:6px; cursor:pointer;">
-              退会してデータを削除する
-           </button> 
-     </form>
-  </div>
   
-  </div>
   <%
   String group = (String)request.getAttribute("group");
   if(group == null || group.isBlank()) group = "default";
