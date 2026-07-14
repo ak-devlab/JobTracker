@@ -153,7 +153,7 @@ tr:hover td{background:#f9fafb}
      </a>
   
   </div>
-  
+ </div>
   
   <%
   String group = (String)request.getAttribute("group");
