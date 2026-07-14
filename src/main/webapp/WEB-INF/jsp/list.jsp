@@ -133,15 +133,24 @@ tr:hover td{background:#f9fafb}
   <i class="bi bi-briefcase-fill"></i>
   就活応募トラッカー
   </h1>
-  <div style="display:flex; align-items:center; gap:10px; margin-right:20px;">
+  <div style="display:flex; align-items:center; gap:12px; margin-left:auto;">
   
      <% if(picture != null){ %>
        <img src="<%= picture %>"
          style="width:40px;height:40px;border-radius:50%;">
          <% } %>
-     <span><%= userName %>さん</span>
-     <a href="<%= request.getContextPath()%>/settings.jsp">設定</a>
-     <a href="<%= request.getContextPath() %>/logout">ログアウト</a>
+     <span style="white-space:nowrap;">
+          <%= userName %>さん
+     </span>
+     
+     <a href="<%= request.getContextPath()%>/settings.jsp"
+         style="white-space:nowrap;">
+         設定
+    </a>
+     <a href="<%= request.getContextPath() %>/logout"
+        style="white-space:nowrap;">
+        ログアウト
+     </a>
   
   </div>
   
