@@ -140,6 +140,7 @@ tr:hover td{background:#f9fafb}
          style="width:40px;height:40px;border-radius:50%;">
          <% } %>
      <span><%= userName %>さん</span>
+     <a href="<%= request.getContextPath()%>/settings.jsp">設定</a>
      <a href="<%= request.getContextPath() %>/logout">ログアウト</a>
   
   </div>
