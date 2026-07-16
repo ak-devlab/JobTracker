@@ -123,15 +123,10 @@ tr:hover td{background:#f9fafb}
  @media (max-width: 600px){
   html,
   body{
-   width:100%;
-   max-width: 100%;
-   overflow-x: hidden;
-   padding: 0;
+   margin: 0;
+   padding: 12px;
   }
   
-  body > div{
-   max-width: 100%;
-  }
   
   .app-title{
    font-size: 26px !important;
@@ -146,22 +141,18 @@ tr:hover td{background:#f9fafb}
    font-size: 16px;
   }
   
-  form{
-   width: 100%;
-  }
-  
   .btn{
    width:100%;
    text-align: center;
   }
   
-  table{
-   min-width: 700px;
+  table-wrap {
+   width: 100%;
+   overflow-x: auto;
   }
   
-  .table-wrap{
-   overflow-x: auto;
-   width: 100%;
+  .table-wrap table{
+   min-width: 700px;
   }
  }
 </style>
@@ -279,7 +270,7 @@ tr:hover td{background:#f9fafb}
     <button type="submit" class="btn-main">追加</button> 
   </form>
   </div>
-  <div>
+  <div class="table-wrap">
   <table class="table table-striped table-hover">
    <tr>
    <th>ID</th><th>会社名</th><th>職種</th><th>ステータス</th>
