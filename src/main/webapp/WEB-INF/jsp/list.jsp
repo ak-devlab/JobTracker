@@ -121,8 +121,16 @@ tr:hover td{background:#f9fafb}
   }
  }
  @media (max-width: 600px){
+  html,
   body{
-   padding:0;
+   width:100%;
+   max-width: 100%;
+   overflow-x: hidden;
+   padding: 0;
+  }
+  
+  body > div{
+   max-width: 100%;
   }
   
   .app-title{
