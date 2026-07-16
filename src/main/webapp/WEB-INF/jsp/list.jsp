@@ -152,7 +152,14 @@ tr:hover td{background:#f9fafb}
   }
   
   .table-wrap table{
-   min-width: 700px;
+   min-width: 650px;
+   font-size: 13px;
+  }
+  
+  .table-wrap th,
+  .table-wrap td{
+   padding: 8px 6px;
+   word-break: break-word;
   }
  }
 </style>
