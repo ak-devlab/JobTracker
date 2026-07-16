@@ -277,6 +277,10 @@ tr:hover td{background:#f9fafb}
     <button type="submit" class="btn-main">追加</button> 
   </form>
   </div>
+  <p style="font-size:13px; color:#666; margin:8px 0;">
+     ※スマホでは表を横にスクロールして確認できます。
+  </p>
+  
   <div class="table-wrap">
   <table class="table table-striped table-hover">
    <tr>
