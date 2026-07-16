@@ -120,6 +120,42 @@ tr:hover td{background:#f9fafb}
    font-size:32px;
   }
  }
+ @media (max-width: 600px){
+  body{
+   padding:0;
+  }
+  
+  .app-title{
+   font-size: 26px !important;
+   line-height: 1.2;
+  }
+  
+  input,
+  select,
+  button{
+   width: 100%;
+   max-width:100%;
+   font-size: 16px;
+  }
+  
+  form{
+   width: 100%;
+  }
+  
+  .btn{
+   width:100%;
+   text-align: center;
+  }
+  
+  table{
+   min-width: 700px;
+  }
+  
+  .table-wrap{
+   overflow-x: auto;
+   width: 100%;
+  }
+ }
 </style>
 </head>
 <%
@@ -235,6 +271,7 @@ tr:hover td{background:#f9fafb}
     <button type="submit" class="btn-main">追加</button> 
   </form>
   </div>
+  <div>
   <table class="table table-striped table-hover">
    <tr>
    <th>ID</th><th>会社名</th><th>職種</th><th>ステータス</th>
@@ -317,6 +354,7 @@ tr:hover td{background:#f9fafb}
    }
    %>
     </table>
+    </div>
     <div style="margin: 8px 0 16px 0;">
      <a class="btn" href="<%= request.getContextPath() %>/index.jsp">
      就活管理メニューに戻る
